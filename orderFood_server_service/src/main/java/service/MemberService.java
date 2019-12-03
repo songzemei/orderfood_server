@@ -25,7 +25,7 @@ public class MemberService {
     //分页查询所有会员 并按照余额排序
     public PageInfo<Member> allOrderBy(int pageNum, int pageSize,String orderBy) {
         PageHelper.startPage(pageNum, pageSize,orderBy);
-        List<Member> allProduct = memberDao.all();
-        return new PageInfo<>(allProduct);
+        List<Member> members = memberDao.all();
+        return new PageInfo<>(members);
     }
 }

@@ -9,9 +9,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>会员管理</title>
-    <meta name="description" content="会员管理">
-    <meta name="keywords" content="会员管理">
+    <title>产品管理</title>
+    <meta name="description" content="产品管理">
+    <meta name="keywords" content="产品管理">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta
@@ -74,16 +74,16 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                会员管理
-                <small>全部会员</small>
+                产品管理
+                <small>全部产品</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${pageContext.request.contextPath}/index.jsp"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="${pageContext.request.contextPath}/user/findAll.do">会员管理</a></li>
+                        href="${pageContext.request.contextPath}/user/findAll.do">产品管理</a></li>
 
-                <li class="active">全部会员</li>
+                <li class="active">全部产品</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -103,6 +103,11 @@
                         <!--工具栏-->
                         <div class="pull-left">
                             <div class="form-group form-inline">
+                                <button type="button" class="btn btn-default" title="新建"
+                                        onclick='location.href="${pageContext.request.contextPath}/product_add.jsp"'><i
+                                        class="fa fa-file-o"></i>
+                                    新增
+                                </button>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" title="刷新">
                                         <i class="fa fa-refresh"></i> 刷新
@@ -127,37 +132,23 @@
                                 <th class="" style="padding-right: 0px"><input
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
-                                <th class="">会员名</th>
-                                <th class="sorting_asc sorting_asc_disabled">邮箱</th>
-                                <th class="sorting_desc sorting_desc_disabled">联系电话</th>
-                                <th class="sorting_desc sorting_desc_disabled">是否激活</th>
-                                <th class="sorting_desc" onclick="orderByBalance()">余额</th>
-                                <th class="sorting_desc sorting_desc_disabled">支付密码</th>
-                                <th class="sorting_desc sorting_desc_disabled">头像</th>
-                                <th class="sorting_desc sorting_desc_disabled">状态</th>
+                                <th class="">产品图片</th>
+                                <th class="">产品名</th>
+                                <th class="sorting_desc" onclick="orderByProductPrice()">产品价格</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${members.list}" var="member">
+                            <c:forEach items="${products.list}" var="product">
                                 <tr>
-                                    <td><input name="ids" type="checkbox" value="${member.id}"></td>
-                                    <td>${member.username}</td>
-                                    <td>${member.email}</td>
-                                    <td>${member.phoneNum}</td>
-                                    <td>${member.activeStr}</td>
-                                    <td>${member.balance}</td>
-                                    <td>${member.paycode}</td>
-                                    <td>${member.headerImg}</td>
-                                    <td>${member.statusStr}</td>
+                                    <td><input name="ids" type="checkbox" value="${product.id}"></td>
+                                    <td>${product.productPhoto}</td>
+                                    <td>${product.productName}</td>
+                                    <td>${product.productPrice}</td>
                                     <td class="text-center">
-                                        <a href="${pageContext.request.contextPath}/member/all?id=${user.id}"
-                                           class="btn bg-olive btn-xs">详情</a>
-                                        <security:authorize access="hasAnyRole({'ROLE_ROOT'})">
-                                            <a href="${pageContext.request.contextPath}/role/findOtherByUserId?userId=${user.id}"
-                                               class="btn bg-olive btn-xs">添加角色</a>
-                                        </security:authorize>
+                                        <a href="${pageContext.request.contextPath}/product/findById?id=${product.id}"
+                                           class="btn bg-olive btn-xs">编辑</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -185,7 +176,7 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共${members.pages}页，共${members.total}条数据。 每页
+                            总共${products.pages}页，共${products.total}条数据。 每页
                             <select class="form-control" id="changePageSize" onchange="changePageSize()">
                                 <option value="3">3</option>
                                 <option value="5">5</option>
@@ -197,29 +188,29 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=1&pageSize=${members.pageSize}"
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=1&pageSize=${products.pageSize}"
                                    aria-label="Previous">首页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pageNum-1}&pageSize=${members.pageSize}">上一页</a>
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pageNum-1}&pageSize=${products.pageSize}">上一页</a>
                             </li>
-                            <c:forEach begin="1" end="${members.pages}" step="1" var="i">
-                                <c:if test="${i == members.pageNum}">
+                            <c:forEach begin="1" end="${products.pages}" step="1" var="i">
+                                <c:if test="${i == products.pageNum}">
                                     <li class="active"><a
-                                            href="${pageContext.request.contextPath}/member/all?pageNum=${i}&pageSize=${members.pageSize}">${i}</a>
+                                            href="${pageContext.request.contextPath}/product/all?pageNum=${i}&pageSize=${products.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
-                                <c:if test="${i != members.pageNum}">
+                                <c:if test="${i != products.pageNum}">
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/member/all?pageNum=${i}&pageSize=${members.pageSize}">${i}</a>
+                                        <a href="${pageContext.request.contextPath}/product/all?pageNum=${i}&pageSize=${products.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
                             </c:forEach>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pageNum+1}&pageSize=${members.pageSize}">下一页</a>
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pageNum+1}&pageSize=${products.pageSize}">下一页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pages}&pageSize=${members.pageSize}"
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pages}&pageSize=${products.pageSize}"
                                    aria-label="Next">尾页</a>
                             </li>
                         </ul>
@@ -304,7 +295,7 @@
         });
     });
 
-    function orderByBalance() {
+    function orderByProductPrice() {
         var url = window.location.search;
         var status;
         if (url.indexOf("asc") == -1) {
@@ -312,15 +303,15 @@
         } else {
             status = "desc";
         }
-        location.href = "${pageContext.request.contextPath}/member/allOrderBy?orderBy=balance "+status;
+        location.href = "${pageContext.request.contextPath}/product/allOrderBy?orderBy=productPrice " + status;
     }
 
     function changePageSize() {
         var pageSize = $("#changePageSize").val(); //获取下拉框的值
         // alert(pageSize);
-        location.href = "${pageContext.request.contextPath}/member/all?pageNum=1&pageSize=" + pageSize;
+        location.href = "${pageContext.request.contextPath}/product/all?pageNum=1&pageSize=" + pageSize;
     }
-    
+
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -334,7 +325,7 @@
         .ready(
             function () {
                 //每页条数下拉框 默认值
-                $("#changePageSize").val(${members.pageSize})
+                $("#changePageSize").val(${products.pageSize})
 
                 // 激活导航位置
                 setSidebarActive("admin-datalist");
