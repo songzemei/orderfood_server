@@ -15,14 +15,14 @@ public class ProductService {
     @Autowired
     private ProductDao productDao;
 
-    //查找所有产品
+    //分页查找所有产品
     public PageInfo<Product> all(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Product> products = productDao.all();
         return new PageInfo<>(products);
     }
 
-    //分页查询所有会员 并按照余额排序
+    //分页查询所有产品 并按照价格排序
     public PageInfo<Product> allOrderBy(int pageNum, int pageSize,String orderBy) {
         PageHelper.startPage(pageNum, pageSize,orderBy);
         List<Product> products = productDao.all();
@@ -41,8 +41,10 @@ public class ProductService {
     }
 
     //删除产品
-    public void delete(String id) {
-        productDao.delete(id);
+    public void delete(String[] ids) {
+        for (String id:ids) {
+            productDao.delete(id);
+        }
     }
 
     //根据id 查找产品

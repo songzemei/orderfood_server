@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -94,82 +94,85 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">列表</h3>
                 </div>
-
                 <div class="box-body">
-
                     <!-- 数据表格 -->
-                    <div class="table-box">
-
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <button type="button" class="btn btn-default" title="新建"
-                                        onclick='location.href="${pageContext.request.contextPath}/product_add.jsp"'><i
-                                        class="fa fa-file-o"></i>
-                                    新增
-                                </button>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="刷新">
-                                        <i class="fa fa-refresh"></i> 刷新
+                    <form action="" method="post" name="productForm">
+                        <div class="table-box">
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <button type="button" class="btn btn-default" title="新建"
+                                            onclick='location.href="${pageContext.request.contextPath}/product_add.jsp"'>
+                                        <i
+                                                class="fa fa-file-o"></i>
+                                        新增
+                                    </button>
+                                    <button type="buttom" class="btn btn-default" title="删除" onclick="del()"><i
+                                            class="fa fa-trash-o"></i>
+                                        删除
+                                    </button>
+                                    <button type="button" class="btn btn-default" title="刷新"
+                                            onclick="window.location.reload();"><i class="fa fa-refresh"></i>
+                                        刷新
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                    <input type="text" class="form-control input-sm"
+                                           placeholder="搜索"> <span
+                                        class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
                             </div>
-                        </div>
-                        <!--工具栏/-->
+                            <!--工具栏/-->
 
-                        <!--数据列表-->
-                        <table id="dataList"
-                               class="table table-bordered table-striped table-hover dataTable">
-                            <thead>
-                            <tr>
-                                <th class="" style="padding-right: 0px"><input
-                                        id="selall" type="checkbox" class="icheckbox_square-blue">
-                                </th>
-                                <th class="">产品图片</th>
-                                <th class="">产品名</th>
-                                <th class="sorting_desc" onclick="orderByProductPrice()">产品价格</th>
-                                <th class="text-center">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <c:forEach items="${products.list}" var="product">
+                            <!--数据列表-->
+                            <table id="dataList"
+                                   class="table table-bordered table-striped table-hover dataTable">
+                                <thead>
                                 <tr>
-                                    <td><input name="ids" type="checkbox" value="${product.id}"></td>
-                                    <td>${product.productPhoto}</td>
-                                    <td>${product.productName}</td>
-                                    <td>${product.productPrice}</td>
-                                    <td class="text-center">
-                                        <a href="${pageContext.request.contextPath}/product/findById?id=${product.id}"
-                                           class="btn bg-olive btn-xs">编辑</a>
-                                    </td>
+                                    <th class="" style="padding-right: 0px"><input
+                                            id="selall" type="checkbox" class="icheckbox_square-blue">
+                                    </th>
+                                    <th class="">产品图片</th>
+                                    <th class="">产品名</th>
+                                    <th class="sorting_desc" onclick="orderByProductPrice()">产品价格</th>
+                                    <th class="text-center">操作</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                            <!--
-                        <tfoot>
-                        <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
-                        </tr>
-                        </tfoot>-->
-                        </table>
-                        <!--数据列表/-->
+                                </thead>
+                                <tbody>
 
-                    </div>
-                    <!-- 数据表格 /-->
+                                <c:forEach items="${products.list}" var="product">
+                                    <tr>
+                                        <td><input name="ids" type="checkbox" value="${product.id}"></td>
+                                        <td>${product.productPhoto}</td>
+                                        <td>${product.productName}</td>
+                                        <td>${product.productPrice}</td>
+                                        <td class="text-center">
+                                            <a href="${pageContext.request.contextPath}/product/findById?id=${product.id}"
+                                               class="btn bg-olive btn-xs">编辑</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                                <!--
+                            <tfoot>
+                            <tr>
+                            <th>Rendering engine</th>
+                            <th>Browser</th>
+                            <th>Platform(s)</th>
+                            <th>Engine version</th>
+                            <th>CSS grade</th>
+                            </tr>
+                            </tfoot>-->
+                            </table>
+                            <!--数据列表/-->
 
+                        </div>
+                        </form>
+                        <!-- 数据表格 /-->
                 </div>
+
                 <!-- /.box-body -->
 
                 <!-- .box-footer-->
@@ -294,6 +297,15 @@
             locale: 'zh-CN'
         });
     });
+
+    function del() {
+        if (confirm("确定删除么？")) {
+            document.productForm.action = "${pageContext.request.contextPath}/product/delete";
+            document.productForm.submit();
+        } else {
+            return false;
+        }
+    }
 
     function orderByProductPrice() {
         var url = window.location.search;

@@ -152,12 +152,10 @@
                                     <td>${member.headerImg}</td>
                                     <td>${member.statusStr}</td>
                                     <td class="text-center">
+                                        <a href="${pageContext.request.contextPath}/member/findById?id=${member.id}"
+                                           class="btn bg-olive btn-xs">地址详情</a>
                                         <a href="${pageContext.request.contextPath}/member/all?id=${user.id}"
-                                           class="btn bg-olive btn-xs">详情</a>
-                                        <security:authorize access="hasAnyRole({'ROLE_ROOT'})">
-                                            <a href="${pageContext.request.contextPath}/role/findOtherByUserId?userId=${user.id}"
-                                               class="btn bg-olive btn-xs">添加角色</a>
-                                        </security:authorize>
+                                           class="btn bg-olive btn-xs">订单详情</a>
                                     </td>
                                 </tr>
                             </c:forEach>

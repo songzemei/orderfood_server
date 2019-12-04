@@ -28,4 +28,9 @@ public class MemberService {
         List<Member> members = memberDao.all();
         return new PageInfo<>(members);
     }
+
+    //根据会员id 查询会员
+    public Member findById(String id) {
+        return memberDao.findById(id);
+    }
 }

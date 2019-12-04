@@ -36,4 +36,14 @@ public class MemberController {
         modelAndView.setViewName("member_list");
         return modelAndView;
     }
+
+    //根据会员id 查询会员
+    @RequestMapping("/findById")
+    public ModelAndView findById(String id) {
+        Member member = memberService.findById(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModelMap().addAttribute("member",member);
+        modelAndView.setViewName("member_show");
+        return modelAndView;
+    }
 }

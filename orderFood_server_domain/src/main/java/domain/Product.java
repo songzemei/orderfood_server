@@ -3,7 +3,7 @@ package domain;
 public class Product {
     private String id;//uuid
     private String productName;//产品名
-    private String productPrice;//产品价格
+    private double productPrice;//产品价格
     private String productPhoto;//产品图片
 
     public String getProductPhoto() {
@@ -30,11 +30,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 }

@@ -27,7 +27,7 @@ public class ProductController {
         return modelAndView;
     }
 
-    //分页查询所有产品 并按照余额排序
+    //分页查询所有产品 并按照价格排序
     @RequestMapping("/allOrderBy")
     public ModelAndView allOrderBy(String orderBy, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "5") int pageSize) {
         ModelAndView modelAndView = new ModelAndView();
@@ -53,8 +53,10 @@ public class ProductController {
 
     //删除产品
     @RequestMapping("/delete")
-    public String delete(String id) {
-        productService.delete(id);
+    public String delete(String[] ids) {
+        if (ids != null) {
+            productService.delete(ids);
+        }
         return "redirect:/product/all";
     }
 
