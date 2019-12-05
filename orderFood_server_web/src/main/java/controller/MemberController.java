@@ -43,7 +43,7 @@ public class MemberController {
         Member member = memberService.findById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.getModelMap().addAttribute("member",member);
-        modelAndView.setViewName("member_show");
+        modelAndView.setViewName("member_info");
         return modelAndView;
     }
 }

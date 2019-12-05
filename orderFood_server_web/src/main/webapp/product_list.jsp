@@ -308,6 +308,7 @@
     }
 
     function orderByProductPrice() {
+        var pageSize = $("#changePageSize").val(); //获取下拉框的值
         var url = window.location.search;
         var status;
         if (url.indexOf("asc") == -1) {
@@ -315,7 +316,7 @@
         } else {
             status = "desc";
         }
-        location.href = "${pageContext.request.contextPath}/product/allOrderBy?orderBy=productPrice " + status;
+        location.href = "${pageContext.request.contextPath}/product/allOrderBy?orderBy=productPrice " + status+" &pageSize="+pageSize;
     }
 
     function changePageSize() {

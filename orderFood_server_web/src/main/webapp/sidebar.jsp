@@ -71,14 +71,24 @@
                             <i class="fa fa-circle-o"></i>产品管理
                         </a>
                     </li>
-                    <li id="order-cancel">
-                        <a href="${pageContext.request.contextPath}/orders/findAll">
-                            <i class="fa fa-circle-o"></i>订单管理
-                        </a>
-                    </li>
                     <li id="member-cancel">
                         <a href="${pageContext.request.contextPath}/member/all">
                             <i class="fa fa-circle-o"></i>会员管理
+                        </a>
+                    </li>
+                    <li id="worker-cancel">
+                        <a href="${pageContext.request.contextPath}/worker/all">
+                            <i class="fa fa-circle-o"></i>查看配送员
+                        </a>
+                    </li>
+                    <li id="orders-cancel-unfinish">
+                        <a href="${pageContext.request.contextPath}/orders/allUnFinish">
+                            <i class="fa fa-circle-o"></i>查看未配送订单
+                        </a>
+                    </li>
+                    <li id="order-cancel-finish">
+                        <a href="${pageContext.request.contextPath}/orders/allFinish">
+                            <i class="fa fa-circle-o"></i>查看已完成订单
                         </a>
                     </li>
                 </ul>

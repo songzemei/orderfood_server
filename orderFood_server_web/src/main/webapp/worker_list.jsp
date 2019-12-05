@@ -9,9 +9,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>会员管理</title>
-    <meta name="description" content="会员管理">
-    <meta name="keywords" content="会员管理">
+    <title>配送员管理</title>
+    <meta name="description" content="配送员管理">
+    <meta name="keywords" content="配送员管理">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta
@@ -74,16 +74,16 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                会员管理
-                <small>全部会员</small>
+                配送员管理
+                <small>全部配送员</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${pageContext.request.contextPath}/index.jsp"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="${pageContext.request.contextPath}/user/findAll.do">会员管理</a></li>
+                        href="${pageContext.request.contextPath}/user/findAll.do">配送员管理</a></li>
 
-                <li class="active">全部会员</li>
+                <li class="active">全部配送员</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -127,35 +127,26 @@
                                 <th class="" style="padding-right: 0px"><input
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
-                                <th class="">会员名</th>
-                                <th class="sorting_asc sorting_asc_disabled">邮箱</th>
-                                <th class="sorting_desc sorting_desc_disabled">联系电话</th>
-                                <th class="sorting_desc sorting_desc_disabled">是否激活</th>
-                                <th class="sorting_desc" onclick="orderByBalance()">余额</th>
-                                <th class="sorting_desc sorting_desc_disabled">支付密码</th>
-                                <th class="sorting_desc sorting_desc_disabled">头像</th>
-                                <th class="sorting_desc sorting_desc_disabled">状态</th>
-                                <th class="text-center">操作</th>
+                                <th class="">名字</th>
+                                <th class="">余额</th>
+                                <th class="">工作状态</th>
+                                <th class="">已接单数量</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${members.list}" var="member">
+                            <c:forEach items="${workers.list}" var="worker">
                                 <tr>
-                                    <td><input name="ids" type="checkbox" value="${member.id}"></td>
-                                    <td>${member.username}</td>
-                                    <td>${member.email}</td>
-                                    <td>${member.phoneNum}</td>
-                                    <td>${member.activeStr}</td>
-                                    <td>${member.balance}</td>
-                                    <td>${member.paycode}</td>
-                                    <td>${member.headerImg}</td>
-                                    <td>${member.statusStr}</td>
+                                    <td><input name="ids" type="checkbox" value="${worker.id}"></td>
+                                    <td>${worker.username}</td>
+                                    <td>${worker.balance}</td>
+                                    <td>${worker.workStatusStr}</td>
+                                    <td>${worker.ordersCount}</td>
                                     <td class="text-center">
-                                        <a href="${pageContext.request.contextPath}/member/findById?id=${member.id}"
-                                           class="btn bg-olive btn-xs">地址详情</a>
-                                        <a href="${pageContext.request.contextPath}"
-                                           class="btn bg-olive btn-xs">订单详情</a>
+                                        <%--<a href="${pageContext.request.contextPath}/member/findById?id=${member.id}"--%>
+                                           <%--class="btn bg-olive btn-xs">地址详情</a>--%>
+                                        <%--<a href="${pageContext.request.contextPath}"--%>
+                                           <%--class="btn bg-olive btn-xs">订单详情</a>--%>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -183,7 +174,7 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共${members.pages}页，共${members.total}条数据。 每页
+                            总共${workers.pages}页，共${workers.total}条数据。 每页
                             <select class="form-control" id="changePageSize" onchange="changePageSize()">
                                 <option value="3">3</option>
                                 <option value="5">5</option>
@@ -195,29 +186,29 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=1&pageSize=${members.pageSize}"
+                                <a href="${pageContext.request.contextPath}/worker/all?pageNum=1&pageSize=${workers.pageSize}"
                                    aria-label="Previous">首页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pageNum-1}&pageSize=${members.pageSize}">上一页</a>
+                                <a href="${pageContext.request.contextPath}/worker/all?pageNum=${workers.pageNum-1}&pageSize=${workers.pageSize}">上一页</a>
                             </li>
-                            <c:forEach begin="1" end="${members.pages}" step="1" var="i">
-                                <c:if test="${i == members.pageNum}">
+                            <c:forEach begin="1" end="${workers.pages}" step="1" var="i">
+                                <c:if test="${i == workers.pageNum}">
                                     <li class="active"><a
-                                            href="${pageContext.request.contextPath}/member/all?pageNum=${i}&pageSize=${members.pageSize}">${i}</a>
+                                            href="${pageContext.request.contextPath}/worker/all?pageNum=${i}&pageSize=${workers.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
-                                <c:if test="${i != members.pageNum}">
+                                <c:if test="${i != workers.pageNum}">
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/member/all?pageNum=${i}&pageSize=${members.pageSize}">${i}</a>
+                                        <a href="${pageContext.request.contextPath}/worker/all?pageNum=${i}&pageSize=${workers.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
                             </c:forEach>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pageNum+1}&pageSize=${members.pageSize}">下一页</a>
+                                <a href="${pageContext.request.contextPath}/worker/all?pageNum=${workers.pageNum+1}&pageSize=${workers.pageSize}">下一页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/member/all?pageNum=${members.pages}&pageSize=${members.pageSize}"
+                                <a href="${pageContext.request.contextPath}/worker/all?pageNum=${workers.pages}&pageSize=${workers.pageSize}"
                                    aria-label="Next">尾页</a>
                             </li>
                         </ul>
@@ -310,13 +301,13 @@
         } else {
             status = "desc";
         }
-        location.href = "${pageContext.request.contextPath}/member/allOrderBy?orderBy=balance "+status;
+        location.href = "${pageContext.request.contextPath}/worker/allOrderBy?orderBy=balance "+status;
     }
 
     function changePageSize() {
         var pageSize = $("#changePageSize").val(); //获取下拉框的值
         // alert(pageSize);
-        location.href = "${pageContext.request.contextPath}/member/all?pageNum=1&pageSize=" + pageSize;
+        location.href = "${pageContext.request.contextPath}/worker/all?pageNum=1&pageSize=" + pageSize;
     }
     
     // 设置激活菜单
@@ -332,7 +323,7 @@
         .ready(
             function () {
                 //每页条数下拉框 默认值
-                $("#changePageSize").val(${members.pageSize})
+                $("#changePageSize").val(${workers.pageSize})
 
                 // 激活导航位置
                 setSidebarActive("admin-datalist");

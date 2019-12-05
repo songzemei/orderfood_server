@@ -75,12 +75,12 @@
         <section class="content-header">
             <h1>
                 会员管理
-                <small>会员详情</small>
+                <small>收货地址详情</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="#"> 会员管理</a></li>
-                <li class="active">会员详情</li>
+                <li class="active">收货地址详情</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
