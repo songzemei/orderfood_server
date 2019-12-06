@@ -1,29 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" isELIgnored="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>订单管理</title>
-    <meta name="description" content="订单管理">
-    <meta name="keywords" content="订单管理">
 
+    <title>日志</title>
+    <meta name="description" content="日志">
+    <meta name="keywords" content="日志">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
-    <!--<link rel="stylesheet" href="${pageContext.request.contextPath}/${pageContext.request.contextPath}/${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">-->
-
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!--<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>-->
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
@@ -71,7 +63,7 @@
           href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 </head>
 
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
     <!-- 页面头部 -->
@@ -83,31 +75,38 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                订单管理
-                <small>未配送订单列表</small>
+                日志管理
+                <small>全部日志</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">订单管理</a></li>
-                <li class="active">未配送订单列表</li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp"><i
+                        class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a
+                        href="${pageContext.request.contextPath}/sysLog/findAll.do">日志管理</a></li>
+
+                <li class="active">全部日志</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
+
         <!-- 正文区域 -->
-        <section class="content">
-            <!-- .box-body -->
+        <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">列表</h3>
                 </div>
+
                 <div class="box-body">
+
                     <!-- 数据表格 -->
                     <div class="table-box">
+
                         <!--工具栏-->
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();">
+                                    <button type="button" class="btn btn-default" title="刷新"
+                                            onclick="window.location.reload();">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
                                 </div>
@@ -121,48 +120,64 @@
                             </div>
                         </div>
                         <!--工具栏/-->
+
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                             <tr>
-                                <th class="" style="padding-right: 0px;"><input
-                                        id="selall" type="checkbox" class="icheckbox_square-blue">
-                                </th>
-                                <th class="text-center">订单编号</th>
-                                <th class="text-center">下单时间</th>
-                                <th class="text-center">下单人</th>
-                                <th class="text-center">金额</th>
-                                <th class="text-center">订单状态</th>
-                                <th class="text-center">操作</th>
+                                <th class="" style="padding-right: 0px"><input id="selall"
+                                                                               type="checkbox"
+                                                                               class="icheckbox_square-blue"></th>
+                                <th class="sorting">访问时间</th>
+                                <th class="sorting">访问用户</th>
+                                <th class="sorting">访问IP</th>
+                                <th class="sorting">资源URL</th>
+                                <th class="sorting">执行时间</th>
+                                <th class="sorting">访问方法</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${allOrders.list}" var="orders">
+                            <c:forEach items="${logs.list}" var="log">
                                 <tr>
                                     <td><input name="ids" type="checkbox"></td>
-                                    <td class="text-center">${orders.id}</td>
-                                    <td class="text-center">${orders.orderTimeStr}</td>
-                                    <td class="text-center">${orders.member.username}</td>
-                                    <td class="text-center">${orders.totalPrice}</td>
-                                    <td class="text-center">${orders.orderStatusStr}</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/orders/info?ordersId=${orders.id}'">
-                                            详情
-                                        </button>
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/worker/allFree?ordersId=${orders.id}'">
-                                            配送
-                                        </button>
-                                    </td>
+                                    <td>${log.visitTimeStr }</td>
+                                    <td>${log.username}</td>
+                                    <td>${log.ip}</td>
+                                    <td>${log.url}</td>
+                                    <td>${log.executionTime}毫秒</td>
+                                    <td>${log.method}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
+
                         </table>
                         <!--数据列表/-->
+
+                        <!--工具栏-->
+                        <div class="pull-left">
+                            <div class="form-group form-inline">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default" title="刷新"
+                                            onclick="window.location.reload();">
+                                        <i class="fa fa-refresh"></i> 刷新
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm"
+                                       placeholder="搜索"> <span
+                                    class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!--工具栏/-->
+
+
                     </div>
                     <!-- 数据表格 /-->
+
                 </div>
                 <!-- /.box-body -->
 
@@ -170,7 +185,7 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共${allOrders.pages}页，共${allOrders.total}条数据。 每页
+                            总共${logs.pages}页，共${logs.total}条数据。 每页
                             <select class="form-control" id="changePageSize" onchange="changePageSize()">
                                 <option value="3">3</option>
                                 <option value="5">5</option>
@@ -182,29 +197,29 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/orders/all?pageNum=1&pageSize=${allOrders.pageSize}"
+                                <a href="${pageContext.request.contextPath}/log/all?pageNum=1&pageSize=${logs.pageSize}"
                                    aria-label="Previous">首页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/orders/all?pageNum=${allOrders.pageNum-1}&pageSize=${allOrders.pageSize}">上一页</a>
+                                <a href="${pageContext.request.contextPath}/log/all?pageNum=${logs.pageNum-1}&pageSize=${logs.pageSize}">上一页</a>
                             </li>
-                            <c:forEach begin="1" end="${allOrders.pages}" step="1" var="i">
-                                <c:if test="${i == allOrders.pageNum}">
+                            <c:forEach begin="1" end="${logs.pages}" step="1" var="i">
+                                <c:if test="${i == logs.pageNum}">
                                     <li class="active"><a
-                                            href="${pageContext.request.contextPath}/orders/all?pageNum=${i}&pageSize=${allOrders.pageSize}">${i}</a>
+                                            href="${pageContext.request.contextPath}/log/all?pageNum=${i}&pageSize=${logs.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
-                                <c:if test="${i != allOrders.pageNum}">
+                                <c:if test="${i != logs.pageNum}">
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/orders/all?pageNum=${i}&pageSize=${allOrders.pageSize}">${i}</a>
+                                        <a href="${pageContext.request.contextPath}/log/all?pageNum=${i}&pageSize=${logs.pageSize}">${i}</a>
                                     </li>
                                 </c:if>
                             </c:forEach>
                             <li>
-                                <a href="${pageContext.request.contextPath}/orders/all?pageNum=${allOrders.pageNum+1}&pageSize=${allOrders.pageSize}">下一页</a>
+                                <a href="${pageContext.request.contextPath}/log/all?pageNum=${logs.pageNum+1}&pageSize=${logs.pageSize}">下一页</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/orders/all?pageNum=${allOrders.pages}&pageSize=${allOrders.pageSize}"
+                                <a href="${pageContext.request.contextPath}/log/all?pageNum=${logs.pages}&pageSize=${logs.pageSize}"
                                    aria-label="Next">尾页</a>
                             </li>
                         </ul>
@@ -212,18 +227,28 @@
 
                 </div>
                 <!-- /.box-footer-->
+
             </div>
+
         </section>
         <!-- 正文区域 /-->
+
     </div>
-    <!-- @@close -->
     <!-- 内容区域 /-->
+
     <!-- 底部导航 -->
     <footer class="main-footer">
-        <jsp:include page="footer.jsp"></jsp:include>
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.8
+        </div>
+        <strong>Copyright &copy; 2014-2017 <a
+                href="http://www.itcast.cn">研究院研发部</a>.
+        </strong> All rights reserved.
     </footer>
     <!-- 底部导航 /-->
+
 </div>
+
 <script
         src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script
@@ -308,19 +333,12 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
-        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-<script
-        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+
 <script>
-    function changePageSize() {
-        var pageSize = $("#changePageSize").val(); //获取下拉框的值
-
-        location.href = "${pageContext.request.contextPath}/orders/allUnFinish?pageNum=1&pageSize=" + pageSize;
-    }
-
     $(document).ready(function () {
         //每页条数下拉框 默认值
-        $("#changePageSize").val(${allOrders.pageSize});
+        $("#changePageSize").val(${logs.pageSize})
 
         // 选择框
         $(".select2").select2();
@@ -340,13 +358,16 @@
         }
     }
 
+    function changePageSize() {
+        var pageSize = $("#changePageSize").val(); //获取下拉框的值
+        // alert(pageSize);
+        location.href = "${pageContext.request.contextPath}/log/all?pageNum=1&pageSize=" + pageSize;
+    }
+
     $(document).ready(function () {
 
-        //每页条数下拉框 默认值
-        $("#changePageSize").val(${allOrders.pageSize})
-
         // 激活导航位置
-        setSidebarActive("admin-datalist");
+        setSidebarActive("order-manage");
 
         // 列表按钮
         $("#dataList td input[type='checkbox']").iCheck({

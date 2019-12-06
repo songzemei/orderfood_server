@@ -20,6 +20,7 @@
                     class="fa fa-dashboard"></i><span>首页</span></a>
             </li>
             <%-- 系统管理 --%>
+            <security:authorize access="hasAnyRole({'ROLE_BOSS'})">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cogs"></i><span>系统管理</span>
@@ -28,35 +29,49 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <%--<security:authorize access="hasAnyRole({'ROLE_BOSS'})">--%>
                     <li id="user-setting">
-                        <a href="${pageContext.request.contextPath}/user/findAll">
+                        <a href="${pageContext.request.contextPath}/admin/all">
                             <i class="fa fa-circle-o"></i>管理员管理
                         </a>
                     </li>
+                    <%--</security:authorize>--%>
+
+                    <%--<security:authorize access="hasAnyRole({'ROLE_BOSS'})">--%>
                     <li id="role-setting">
-                        <a href="${pageContext.request.contextPath}/role/findAll">
+                        <a href="${pageContext.request.contextPath}/role/all">
                             <i class="fa fa-circle-o"></i>角色管理
                         </a>
                     </li>
+                    <%--</security:authorize>--%>
+
+                    <%--<security:authorize access="hasAnyRole({'ROLE_BOSS'})">--%>
                     <li id="permission-setting">
                         <a href="${pageContext.request.contextPath}/permission/findAll">
                             <i class="fa fa-circle-o"></i>角色权限管理
                         </a>
                     </li>
+                    <%--</security:authorize>--%>
+
+                    <%--<security:authorize access="hasAnyRole({'ROLE_BOSS'})">--%>
                     <li id="log-setting">
                         <a href="${pageContext.request.contextPath}/log/all">
                             <i class="fa fa-circle-o"></i>普通日志管理
                         </a>
                     </li>
-                    <security:authorize access="hasAnyRole({'ROLE_ROOT'})">
+                    <%--</security:authorize>--%>
+
+                    <%--<security:authorize access="hasAnyRole({'ROLE_BOSS'})">--%>
                     <li id="errorLog-setting">
                         <a href="${pageContext.request.contextPath}/errorLog/all">
                             <i class="fa fa-circle-o"></i>错误日志管理
                         </a>
                     </li>
-                    </security:authorize>
+                    <%--</security:authorize>--%>
                 </ul>
             </li>
+            </security:authorize>
+
 
             <li class="treeview">
                 <a href="#">

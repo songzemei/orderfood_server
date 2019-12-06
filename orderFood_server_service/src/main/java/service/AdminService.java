@@ -50,25 +50,25 @@ public class AdminService implements UserDetailsService {
         return user;
     }
 
-//    //查询所有管理员
-//    public List<Admin> findAll() {
-//        return adminDao.findAll();
-//    }
-//
-//    //添加管理员
-//    public void add(Admin admin) {
-//        admin.setId(UUID.randomUUID().toString());
-////        admin.setPassword(encoder.encode(admin.getPassword()));
-//        adminDao.add(admin);
-//    }
-//
-//    //根据 管理员id 查找管理员
-//    public Admin findById(String id) {
-//        return adminDao.findById(id);
-//    }
-//
-//    //给管理员添加角色
-//    public void addRoleToAdmin(String adminId, String roleId) {
-//        adminDao.addRoleToAdmin(adminId, roleId);
-//    }
+    //查询所有管理员
+    public List<Admin> all() {
+        return adminDao.all();
+    }
+
+    //添加管理员
+    public void add(Admin admin) {
+        admin.setId(UUID.randomUUID().toString());
+//        admin.setPassword(encoder.encode(admin.getPassword()));
+        adminDao.add(admin);
+    }
+
+    //根据 管理员id 查找管理员
+    public Admin findById(String id) {
+        return adminDao.findById(id);
+    }
+
+    //给管理员添加角色
+    public void addRoleToAdmin(String adminId, String roleId) {
+        adminDao.addRoleToAdmin(adminId, roleId);
+    }
 }

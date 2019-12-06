@@ -314,10 +314,13 @@
     function changePageSize() {
         var pageSize = $("#changePageSize").val(); //获取下拉框的值
 
-        location.href = "${pageContext.request.contextPath}/orders/all?pageNum=1&pageSize=" + pageSize;
+        location.href = "${pageContext.request.contextPath}/orders/allFinish?pageNum=1&pageSize=" + pageSize;
     }
 
     $(document).ready(function () {
+        //每页条数下拉框 默认值
+        $("#changePageSize").val(${allOrders.pageSize})
+
         // 选择框
         $(".select2").select2();
 
