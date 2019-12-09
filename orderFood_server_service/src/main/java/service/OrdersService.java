@@ -47,8 +47,14 @@ public class OrdersService {
     }
 
     //查询营业额 已完成的订单才算进去 orderStatus=1的订单
-    public double income() {
-        return ordersDao.income();
+    public Double income() {
+        Double income = ordersDao.income();
+        if (income==null){
+            return 0.0;
+        }else {
+            return income;
+        }
+
     }
 
 //    //根据会员id查找对应的所有订单

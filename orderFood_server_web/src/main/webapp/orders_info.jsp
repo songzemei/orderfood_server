@@ -110,7 +110,7 @@
 
                     <c:forEach items="${orders.cars}" var="car">
                         <tr>
-                            <td>${car.product.productPhoto}</td>
+                            <td><img src="http://localhost:81/upload/${car.product.productPhoto}" width="60" height="60"></td>
                             <td>${car.product.productName}</td>
                             <td>${car.product.productPrice}</td>
                             <td>${car.productCount}</td>

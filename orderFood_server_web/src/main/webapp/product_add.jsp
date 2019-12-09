@@ -70,9 +70,17 @@
         <!-- 内容头部 /-->
         <!-- 正文区域 -->
         <section class="content">
+
+            <form id="headerForm" enctype="multipart/form-data" method="post">
+                <input type="file" name="file" id="file">
+                <input type="button" value="上传菜品图片" id="fileBtn">
+                <img src="${pageContext.request.contextPath}/img/defaultHeader.gif" id="headerImg" width="52" height="52">
+            </form>
+
             <form action="${pageContext.request.contextPath}/product/add" method="post">
                 <!--订单信息-->
                 <div class="panel panel-default">
+                    <input type="hidden" name="productPhoto" id="productPhoto">
                     <div class="panel-heading">产品信息</div>
                     <div class="row data-type">
                         <div class="col-md-2 title">产品名</div>
@@ -101,7 +109,9 @@
     </footer>
 </div>
 
-<script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.form.js" type="text/javascript"></script>
+<%--<script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>--%>
 <script src="${pageContext.request.contextPath}/plugins/jQueryUI/jquery-ui.min.js"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button);
@@ -148,6 +158,22 @@
 <script src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script>
+    $(function () {
+        $("#fileBtn").click(function () {
+            $("#headerForm").ajaxSubmit({
+                url: "${pageContext.request.contextPath}/product/upload",
+                type: "POST",
+                success: function (data) {
+                    if (data.result) {
+                        $("#headerImg").attr("src", "http://localhost:81/upload/" + data.message);
+                        $("#productPhoto").val(data.message);
+                    }
+                }
+            })
+            // alert("11");
+        })
+    })
+
     $(document).ready(function () {
         // 选择框
         $(".select2").select2();

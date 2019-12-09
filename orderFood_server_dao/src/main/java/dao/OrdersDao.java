@@ -40,7 +40,7 @@ public interface OrdersDao {
 
     //查询营业额 已完成的订单才算进去 orderStatus=1的订单
     @Select("SELECT SUM(totalPrice) FROM orders WHERE orderStatus=1")
-    double income();
+    Double income();
 
     //更改订单状态为已配送
     @Update("update orders set orderStatus=1 where id=#{id}")

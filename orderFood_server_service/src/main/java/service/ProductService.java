@@ -4,9 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import dao.ProductDao;
 import domain.Product;
+import domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import util.UploadUtil;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,5 +54,16 @@ public class ProductService {
     //根据id 查找产品
     public Product findById(String id) {
         return productDao.findById(id);
+    }
+
+    //上传菜品图片
+    public Result upload(MultipartFile file) throws IOException {
+        String name = file.getOriginalFilename();
+        name = UUID.randomUUID() + "_" + name;
+        UploadUtil.uploadToImgServer(file, "http://localhost:81/upload/", name);
+        Result result = new Result();
+        result.setResult(true);
+        result.setMessage(name);
+        return result;
     }
 }

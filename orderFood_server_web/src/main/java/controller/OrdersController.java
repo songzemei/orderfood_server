@@ -29,7 +29,7 @@ public class OrdersController {
     @RequestMapping("/allFinish")
     public ModelAndView allFinish(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "5") int pageSize) {
         PageInfo<Orders> allOrders = ordersService.allFinish(pageNum, pageSize);
-        double income = ordersService.income();
+        Double income = ordersService.income();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.getModelMap().addAttribute("allOrders", allOrders);
         modelAndView.getModelMap().addAttribute("income", income);

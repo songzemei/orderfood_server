@@ -2,13 +2,17 @@ package controller;
 
 import com.github.pagehelper.PageInfo;
 import domain.Product;
+import domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import service.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -68,5 +72,13 @@ public class ProductController {
         modelAndView.getModelMap().addAttribute("product",product);
         modelAndView.setViewName("product_update");
         return modelAndView;
+    }
+
+    //上传菜品图片
+    @RequestMapping("/upload")
+    public @ResponseBody
+    Result upload(MultipartFile file) throws IOException {
+        Result result = productService.upload(file);
+        return result;
     }
 }

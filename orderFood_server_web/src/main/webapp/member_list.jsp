@@ -135,6 +135,7 @@
                                 <th class="sorting_desc sorting_desc_disabled">支付密码</th>
                                 <th class="sorting_desc sorting_desc_disabled">头像</th>
                                 <th class="sorting_desc sorting_desc_disabled">状态</th>
+                                <th class="sorting_desc sorting_desc_disabled">是否为骑手</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -149,8 +150,9 @@
                                     <td>${member.activeStr}</td>
                                     <td>${member.balance}</td>
                                     <td>${member.paycode}</td>
-                                    <td>${member.headerImg}</td>
+                                    <td><img src="http://localhost:81/upload/${member.headerImg}" width="60" height="60"></td>
                                     <td>${member.statusStr}</td>
+                                    <td>${member.riderStatusStr}</td>
                                     <td class="text-center">
                                         <a href="${pageContext.request.contextPath}/member/findById?id=${member.id}"
                                            class="btn bg-olive btn-xs">地址详情</a>
